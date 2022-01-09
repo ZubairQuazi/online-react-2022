@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            background-color: rgb(22, 33, 189);
+            color: rgb(202, 202, 231);
+            text-align: center;
+            padding: 5px;
+            font-family: 'Trebuchet MS';
+        }
+    </style>
+    <script>
+        function init(){
+            document.getElementsByTagName("h1")[0].innerText = "Welcome to your life";
+            console.log("code in line 20");
+        };
+        // onload = init;
+        // window.addEventListener("load", init);
+        document.addEventListener("DOMContentLoaded", init);
+        console.log("code in line 25");
+    </script>
+</head>
+<!-- <body onload="init()"> -->
+<body>
+    <h1></h1>
+</body>
+</html>
+
+<!--
+Create 3 different functions name them 
+fun1
+fun2
+fun3
+call fun1 on window.onload
+call fun2 on window.addEventListener(load);
+call fun3 on document.addEventListener("DOMContentLoaded");
+and findout which of these executed first
+-->

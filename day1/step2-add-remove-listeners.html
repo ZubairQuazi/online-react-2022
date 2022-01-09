@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            background-color: gray;
+            padding: 5px;
+            width: 800px;
+            height: 400px;
+            overflow: auto;
+        }
+        .container div{
+            background-color: rgb(49, 49, 49);
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function init(){
+            document.getElementsByTagName("button")[0].addEventListener("click", addBoxHandler);
+            document.getElementsByTagName("button")[1].addEventListener("click", stopAddingBoxHandler);
+            document.getElementsByTagName("button")[2].addEventListener("click", startAgainHandler);
+        };
+        function addBoxHandler(){
+            var box = document.createElement("div");
+            document.getElementsByClassName("container")[0].appendChild(box);
+            console.log("box added");
+        };
+        function stopAddingBoxHandler(){
+            document.getElementsByTagName("button")[0].removeEventListener("click", addBoxHandler);
+            document.getElementsByTagName("button")[1].removeEventListener("click", stopAddingBoxHandler);
+            console.log("stopped adding box");
+        };
+        function startAgainHandler(){
+            document.getElementsByTagName("button")[0].addEventListener("click", addBoxHandler);
+            document.getElementsByTagName("button")[1].addEventListener("click", stopAddingBoxHandler);
+        }
+        addEventListener("load", init);
+    </script>
+</head>
+<body>
+    <button>Add BOX</button>
+    <button>Stop Adding BOX</button>
+    <button>Start Again</button>
+    <hr>
+    <div class="container"></div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            background-color: gray;
+            padding: 5px;
+            width: 800px;
+            height: 400px;
+            overflow: auto;
+        }
+        .container div{
+            background-color: rgb(49, 49, 49);
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin: 5px;
+            color: honeydew;
+            font-family: 'Trebuchet MS';
+            font-size: 40px;
+            line-height: 100px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        var boxcount = 1;
+        function init(){
+            document.getElementsByTagName("button")[0].addEventListener("click", addBoxHandler);
+            document.getElementsByTagName("button")[1].addEventListener("click", removeFirstBoxHandler);
+            document.getElementsByTagName("button")[2].addEventListener("click", removeLastBoxHandler);
+        };
+        function addBoxHandler(){
+            var box = document.createElement("div");
+            box.innerText = boxcount;
+            box.addEventListener("click", removeSelectedBox);
+            document.getElementsByClassName("container")[0].appendChild(box);
+            boxcount++;
+        };
+        function removeFirstBoxHandler(){
+            var box = document.getElementsByClassName("container")[0].firstChild;
+            if(box){
+                document.getElementsByClassName("container")[0].removeChild(box);
+            }else{
+                alert("nothing to remove");
+            }
+        }; 
+        function removeLastBoxHandler(){
+            var box = document.getElementsByClassName("container")[0].lastChild;
+            if(box){
+                document.getElementsByClassName("container")[0].removeChild(box);
+            }else{
+                alert("nothing to remove");
+            }
+        };
+        function removeSelectedBox(evt){
+            // alert("you cicked a box "+evt.target.innerText);
+            var box = evt.target;
+            if(box){
+                document.getElementsByClassName("container")[0].removeChild(box);
+            }else{
+                alert("nothing to remove");
+            }
+        };
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</head>
+<body>
+    <button>Add BOX</button>
+    <button>Remove First BOX</button>
+    <button>Remove Last BOX</button>
+    <hr>
+    <div class="container"></div>
+</body>
+</html>
