@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destructuring in ES6</title>
+    <script>
+        var hero = {
+            title : "Ironman",
+            power : 7,
+            firstname : "Tony",
+            lastname : "Stark",
+            city : "New York"
+        };
+
+     /*  
+      var herotitle = hero.title;
+      var heropower = hero.power;
+      var herofirstname = hero.firstname;
+      var herolastname = hero.lastname;
+      var herocity = hero.city; 
+      */
+
+     /*  
+      var herotitle = hero.title,
+          heropower = hero.power,
+          herofirstname = hero.firstname,
+          herolastname = hero.lastname,
+          herocity = hero.city; 
+    */
+
+    // ES5
+    /* var { 
+        title : herotitle,
+        power : heropower,
+        firstname : herofirstname,
+        lastname : herolastname,
+        city : herocity
+        } = hero;
+
+      console.log(herotitle);// Ironman
+      herotitle = "Ironmonger";
+      console.log(herotitle);// Ironmonger
+      console.log(hero.title);// Ironman
+    */
+
+      var { title, power, firstname, lastname, city } = hero;
+
+      console.log(title);// Ironman
+      title = "Ironmonger";
+      console.log(title);// Ironmonger
+      console.log(hero.title);// Ironman
+
+      var avengers = ["Ironman", "Hulk", "Captain America"];
+
+      var [ firsthero, secondhero, thirdhero ] = avengers;
+
+      console.log(firsthero, thirdhero, secondhero);
+   
+    /* // object.assign
+      var heroclone = {...hero};
+      console.log(heroclone); 
+    */
+    </script> 
+</head>
+<body>
+    
+</body>
+</html>

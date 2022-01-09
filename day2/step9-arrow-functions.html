@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fat Arrow Functions</title>
+    <script>
+
+      /*   // function declaration
+        function adder(num1, num2){
+            return num1 + num2;
+        }; */
+
+        // function expression
+       /*  var adder = function (num1, num2){
+            return num1 + num2;
+        }; */
+
+        /* var adder = (num1, num2) => {
+            return num1 + num2;
+        }; */
+
+        /* var adder = (num1, num2) =>  num1 + num2 ; */
+
+        // var adder = (num1) =>  num1 + num1 ;
+
+        var adder = num1 => num1 + num1 ;
+        console.log(adder(5));// 10
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
