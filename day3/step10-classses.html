@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes in ES6 - Latest</title>
+    <script>
+        // ES6
+        /* class Hero{
+            constructor(){
+                this.firstname = 'default first name';
+                this.lastname = 'default last name';
+            }
+        } */
+
+        // ES7
+        class Hero{
+            firstname = 'default first name';
+            lastname = 'default last name';
+            _secret = "my secret mission";
+            static version = 1001;
+
+            constructor(fname, lname){
+                firstname = fname ;
+                lastname = lname ;
+            }
+            
+            fullname(){
+                return this.firstname+" "+this.lastname;
+            }
+
+            get secret(){
+                return this._secret;
+            }
+
+            set secret(nmission){
+                this._secret = nmission;
+            }
+
+        }
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
