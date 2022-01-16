@@ -22,8 +22,8 @@
             static version = 1001;
 
             constructor(fname, lname){
-                firstname = fname ;
-                lastname = lname ;
+                this.firstname = fname ;
+                this.lastname = lname ;
             }
             
             fullname(){
@@ -39,6 +39,13 @@
             }
 
         }
+
+        let hero = new Hero("Tony", "Stark");
+
+        console.log(hero.firstname);
+        console.log(hero.fullname());
+        console.log( hero.secret );
+        
 
 
     </script>
