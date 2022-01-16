@@ -8,14 +8,15 @@
     <script>
         var promise = new Promise((resolve, reject)=>{
             setTimeout(function(){
-                if(true){ 
+                if(false){ 
                     resolve('Resolve Message');
                 }else{
                     reject('Reject Message');
                 }
-            },2000)
+            },4000)
         });
-/* 
+
+        /* 
         promise
         .then(function(res){
             console.log(res);
@@ -27,13 +28,33 @@
             console.log("promise is complete");
         }) */
 
-        promise
+       /*  promise
         .then(function(res){
             console.log(res);
         },function(err){
             console.log(err);
-        })
+        }) */
 
+       /*  
+       promise
+        .then(function(res){
+            console.log(res);
+            return res.toUpperCase();
+        })
+        .then(function(res){
+            console.log(res);
+            return res.toLowerCase();;
+        })
+        .then(function(res){
+            console.log(res);
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+        .finally(function(){
+            console.log("promise completed")
+        }) 
+        */
     </script>
 </head>
 <body>
