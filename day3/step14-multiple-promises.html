@@ -9,12 +9,12 @@
          function firstAsyncCall(){
             return new Promise((resolve, reject)=>{
                 setTimeout(function(){
-                    if(false){ 
+                    if(true){ 
                         resolve('First Resolve Message');
                     }else{
                         reject('First Reject Message');
                     }
-                },4000)
+                },800)
             });
          };
          function secondAsyncCall(){
@@ -25,21 +25,40 @@
                     }else{
                         reject('Second Reject Message');
                     }
-                },4000)
+                },1000)
             });
          };
          function thirdAsyncCall(){
             return new Promise((resolve, reject)=>{
                 setTimeout(function(){
-                    if(false){ 
+                    if(true){ 
                         resolve('Third Resolve Message');
                     }else{
                         reject('Third Reject Message');
                     }
-                },4000)
+                },3000)
             });
          };
-         
+
+        /*  
+         Promise
+         .all([firstAsyncCall(), secondAsyncCall(), thirdAsyncCall()])
+         .then(res => console.log(res))
+         .catch( err => console.log(err)); 
+         */
+
+         /* 
+         Promise
+         .any([firstAsyncCall(), secondAsyncCall(), thirdAsyncCall()])
+         .then(res => console.log(res))
+         .catch( err => console.log(err));  
+         */
+
+         Promise
+         .race([firstAsyncCall(), secondAsyncCall(), thirdAsyncCall()])
+         .then(res => console.log(res))
+         .catch( err => console.log(err));
+
     </script>
 </head>
 <body>
