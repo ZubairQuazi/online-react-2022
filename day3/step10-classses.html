@@ -15,13 +15,20 @@
         } */
 
         // ES7
-        class Hero{
+        class Person{
+            age = 0;
+            constructor(nage){
+                this.age = nage;
+            }
+        }
+        class Hero extends Person {
             firstname = 'default first name';
             lastname = 'default last name';
             _secret = "my secret mission";
             static version = 1001;
 
-            constructor(fname, lname){
+            constructor(fname, lname, hage){
+                super(hage);
                 this.firstname = fname ;
                 this.lastname = lname ;
             }
@@ -40,13 +47,15 @@
 
         }
 
-        let hero = new Hero("Tony", "Stark");
+        let hero = new Hero("Tony", "Stark", "30");
 
         console.log(hero.firstname);
         console.log(hero.fullname());
         console.log( hero.secret );
-        
-
+        hero.secret = "save the world";
+        console.log( hero.secret );
+        console.log("Hero's age ", hero.age );
+        console.log( Hero.version );// ???
 
     </script>
 </head>
