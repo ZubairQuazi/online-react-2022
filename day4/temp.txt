@@ -12,34 +12,29 @@ class App extends Component{
     }
 
     render(){
-        if(this.state.showterms){
-            return <div>
+        return <div>
                 <h1>Using State</h1>
                 <h1>Power is : { this.state.power }</h1>
                 <hr/>
                 <button onClick={  this.increasePower }>Increase Power </button>
                 <hr/>
-                <fieldset>
-                    <legend>Terms And Conditions</legend>
-                    <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fugit veniam maxime dolores enim sunt, sequi iure molestias, consectetur, odio atque dicta est dolorem hic vitae neque ea provident impedit.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ipsa eum aliquam excepturi tempora, at enim nesciunt, corrupti unde quo reiciendis fugit nam optio culpa repellendus quis placeat, cupiditate commodi.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus aspernatur pariatur dolore nostrum dicta expedita iure, unde, sed aut repellat saepe repudiandae eius recusandae voluptate consectetur. Vitae voluptatibus magnam quisquam?
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos omnis totam odio inventore quam. Optio at deleniti eum soluta tenetur illum, sapiente, similique aliquid, deserunt adipisci sit quas omnis officia.
-                    </p>
-                    <button onClick={()=> this.setState({ showterms : false })}>Hide</button>
-                </fieldset>
+                {
+                 this.state.showterms 
+                ?
+                    <fieldset>
+                        <legend>Terms And Conditions</legend>
+                            <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fugit veniam maxime dolores enim sunt, sequi iure molestias, consectetur, odio atque dicta est dolorem hic vitae neque ea provident impedit.
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ipsa eum aliquam excepturi tempora, at enim nesciunt, corrupti unde quo reiciendis fugit nam optio culpa repellendus quis placeat, cupiditate commodi.
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus aspernatur pariatur dolore nostrum dicta expedita iure, unde, sed aut repellat saepe repudiandae eius recusandae voluptate consectetur. Vitae voluptatibus magnam quisquam?
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos omnis totam odio inventore quam. Optio at deleniti eum soluta tenetur illum, sapiente, similique aliquid, deserunt adipisci sit quas omnis officia.
+                            </p>
+                        <button onClick={()=> this.setState({ showterms : false })}>Hide</button>
+                    </fieldset>
+                : 
+                    <button onClick={()=> this.setState({ showterms : true })}>Show</button>
+                }
                </div>
-        }else{
-            return <div>
-                <h1>Using State</h1>
-                <h1>Power is : { this.state.power }</h1>
-                <hr/>
-                <button onClick={  this.increasePower }>Increase Power </button>
-                <hr/>
-                <button onClick={()=> this.setState({ showterms : true })}>Show</button>
-               </div>
-        }
     }
 }
 
