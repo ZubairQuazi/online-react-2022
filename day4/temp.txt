@@ -1,11 +1,18 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
+
 
 class ChildComp extends Component{
-    
-    static defaultProps = {
+
+/*  static defaultProps = {
         title : "Default Title",
         pow : 0
     }
+ */
+    static propTypes = {
+        title : PropTypes.string.isRequired,
+        pow : PropTypes.number.isRequired
+    };
 
     render(){
         let styleConfig = { 
@@ -27,3 +34,38 @@ class ChildComp extends Component{
 }
 
 export default ChildComp;
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import ChildComp from './child.component';
+
+class App extends Component{
+    state = {
+        power : 0,
+        title : "My Online Application"
+    };
+
+    increasePower = ()=>{
+        this.setState({ power : this.state.power + 1})
+    }
+
+    render(){
+        return <div>
+                <h1>Using Props</h1>
+                <h1>Power is : { this.state.power }</h1>
+                <button onClick={  this.increasePower }>Increase Power </button>
+                <hr/>
+                <ChildComp title={ this.state.title } pow={ this.state.power } />
+                <ChildComp title={ this.state.title } pow={ this.state.power } />
+                <ChildComp title={ this.state.title }  pow={ this.state.power } />
+                <ChildComp title={ this.state.title }  pow={ this.state.power } />
+               </div>
+    }
+}
+
+ReactDOM.render(<App/>, document.getElementById("root"));
