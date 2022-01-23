@@ -1,10 +1,39 @@
+import React, { Component } from "react";
+
+class ChildComp extends Component{
+    render(){
+        let styleConfig = { 
+            border : "1px solid grey", 
+            padding : "10px", 
+            width : "250px", 
+            margin : '10px',
+            float : "left"
+        } ;
+
+        return <div style={ styleConfig }>
+                    <h2>Child Component</h2>
+                    <hr/>
+                    <h3>Title : { this.props.title }</h3>
+                    <h3>Power : { this.props.pow }</h3>
+                </div>
+    }
+}
+
+export default ChildComp;
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import ChildComp from './child.component';
 
 class App extends Component{
     state = {
         power : 0,
-        showterms : false
+        title : "My Online Application"
     };
 
     increasePower = ()=>{
@@ -13,29 +42,16 @@ class App extends Component{
 
     render(){
         return <div>
-                <h1>Using State</h1>
+                <h1>Using Props</h1>
                 <h1>Power is : { this.state.power }</h1>
-                <hr/>
                 <button onClick={  this.increasePower }>Increase Power </button>
                 <hr/>
-                {
-                 this.state.showterms 
-                ?
-                    <fieldset>
-                        <legend>Terms And Conditions</legend>
-                            <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error fugit veniam maxime dolores enim sunt, sequi iure molestias, consectetur, odio atque dicta est dolorem hic vitae neque ea provident impedit.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ipsa eum aliquam excepturi tempora, at enim nesciunt, corrupti unde quo reiciendis fugit nam optio culpa repellendus quis placeat, cupiditate commodi.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus aspernatur pariatur dolore nostrum dicta expedita iure, unde, sed aut repellat saepe repudiandae eius recusandae voluptate consectetur. Vitae voluptatibus magnam quisquam?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos omnis totam odio inventore quam. Optio at deleniti eum soluta tenetur illum, sapiente, similique aliquid, deserunt adipisci sit quas omnis officia.
-                            </p>
-                        <button onClick={()=> this.setState({ showterms : false })}>Hide</button>
-                    </fieldset>
-                : 
-                    <button onClick={()=> this.setState({ showterms : true })}>Show</button>
-                }
+                <ChildComp title={ this.state.title } pow={ this.state.power } />
+                <ChildComp title={ this.state.title } pow={ this.state.power } />
+                <ChildComp title={ this.state.title } pow={ this.state.power } />
+                <ChildComp title={ this.state.title } pow={ this.state.power } />
                </div>
     }
 }
 
-ReactDOM.render(<App title="hello app"/>, document.getElementById("root"));
+ReactDOM.render(<App/>, document.getElementById("root"));
