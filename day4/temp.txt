@@ -1,36 +1,34 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends Component{
     // power = 0;
     state = {
         power : 0
-    }
-    constructor(){
-        super();
-        this.increasePower3 = this.increasePower3.bind(this);
-    }
-    increasePower1(){
+    };
+
+    ni = React.createRef();
+
+    increasePower = ()=>{
         this.setState({ power : this.state.power + 1  })
     }
-    increasePower2(){
-        this.setState({ power : this.state.power + 1  })
+    setPowerFromSlider = (evt)=>{
+        this.setState({ power : Number(evt.target.value)  })
     }
-    increasePower3(){
-        this.setState({ power : this.state.power + 1  })
-    }
-    increasePower4 = ()=>{
-        this.setState({ power : this.state.power + 1  })
+    setPowerFromNumber = ()=>{
+        this.setState({ power : Number(this.ni.current.value)  })
     }
     render(){
         return <div>
                 <h1>Using State</h1>
                 <h1>Power is : { this.state.power }</h1>
                 <hr/>
-                <button onClick={ ()=> this.increasePower1() }>Increase Power 1 </button>
-                <button onClick={  this.increasePower2.bind(this) }>Increase Power 2</button>
-                <button onClick={  this.increasePower3 }>Increase Power 3</button>
-                <button onClick={  this.increasePower4 }>Increase Power 4</button>
+                <button onClick={  this.increasePower }>Increase Power </button>
+                <br/>
+                <input onChange={ this.setPowerFromSlider } type="range"/>
+                <br/>
+                <input ref={this.ni} type="number"/>
+                <button onClick={ this.setPowerFromNumber }>Set Power from Number input</button>
                </div>
     }
 }
