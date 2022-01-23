@@ -2,10 +2,17 @@ import { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends Component{
+    power = 0;
     render(){
         return <div>
                 <h1>Using State</h1>
+                <h1>Power is : { this.power }</h1>
                 <hr/>
+                <button onClick={ ()=>{
+                    this.power = this.power +1;
+                    console.log(this.power);
+                    this.forceUpdate();
+                }}>Increase Power</button>
                </div>
     }
 }
