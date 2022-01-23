@@ -2,35 +2,32 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends Component{
-    // power = 0;
     state = {
         power : 0
     };
 
-    ni = React.createRef();
-
     increasePower = ()=>{
-        this.setState({ power : this.state.power + 1  })
+        // this.setState({ power : this.state.power + 1  });
+        // console.log(this.state.power);
+        /* this.setState({ power : this.state.power + 1}, function(){
+            console.log(this.state.power);
+        }) */
+        this.setState(function(currentState, propsObj){
+            console.log(propsObj);// ??? 
+            return { power : currentState.power + 1}
+        }, function(){
+            console.log(this.state.power);
+        })
     }
-    setPowerFromSlider = (evt)=>{
-        this.setState({ power : Number(evt.target.value)  })
-    }
-    setPowerFromNumber = ()=>{
-        this.setState({ power : Number(this.ni.current.value)  })
-    }
+
     render(){
         return <div>
                 <h1>Using State</h1>
                 <h1>Power is : { this.state.power }</h1>
                 <hr/>
                 <button onClick={  this.increasePower }>Increase Power </button>
-                <br/>
-                <input onChange={ this.setPowerFromSlider } type="range"/>
-                <br/>
-                <input ref={this.ni} type="number"/>
-                <button onClick={ this.setPowerFromNumber }>Set Power from Number input</button>
                </div>
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById("root"));
+ReactDOM.render(<App title="hello app"/>, document.getElementById("root"));
