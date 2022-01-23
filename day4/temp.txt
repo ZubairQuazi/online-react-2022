@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
 class ChildComp extends Component{
+    
+    static defaultProps = {
+        title : "Default Title",
+        pow : 0
+    }
+
     render(){
         let styleConfig = { 
             border : "1px solid grey", 
@@ -15,43 +21,9 @@ class ChildComp extends Component{
                     <hr/>
                     <h3>Title : { this.props.title }</h3>
                     <h3>Power : { this.props.pow }</h3>
+                    <p>Title : { this.props.title  }</p>
                 </div>
     }
 }
 
 export default ChildComp;
-
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import ChildComp from './child.component';
-
-class App extends Component{
-    state = {
-        power : 0,
-        title : "My Online Application"
-    };
-
-    increasePower = ()=>{
-        this.setState({ power : this.state.power + 1})
-    }
-
-    render(){
-        return <div>
-                <h1>Using Props</h1>
-                <h1>Power is : { this.state.power }</h1>
-                <button onClick={  this.increasePower }>Increase Power </button>
-                <hr/>
-                <ChildComp title={ this.state.title } pow={ this.state.power } />
-                <ChildComp title={ this.state.title } pow={ this.state.power } />
-                <ChildComp title={ this.state.title } pow={ this.state.power } />
-                <ChildComp title={ this.state.title } pow={ this.state.power } />
-               </div>
-    }
-}
-
-ReactDOM.render(<App/>, document.getElementById("root"));
