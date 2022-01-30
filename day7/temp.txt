@@ -1,92 +1,94 @@
 import { Component } from "react";
+import PowerClickComponent from "./components/power.click.component";
+import PowerHoverComponent from "./components/power.hover.component";
+import SecondPowerClickComponent from "./components/secondpower.click.component";
 
 class App extends Component{
-    state = {
-        name : '',
-        age : 0,
-        city : '',
-        nameError : '',
-        ageError : '',
-        cityError : ''
-    }
-    submitHandler = (evt)=>{
-        evt.preventDefault();
-        if(this.state.name === ''){
-            this.setState({ nameError : 'Your Name can not be blank'})
-        }
-        if(this.state.city === ''){
-            this.setState({ cityError : 'Your City can not be blank'})
-        }
-        if(this.state.age === 0){
-            this.setState({ ageError : 'Your Age must be provided'})
-        }
-        if(this.state.name !== '' && this.state.city !== '' && this.state.age !== 0){
-            this.setState({ 
-                nameError : '',
-                cityError : ''
-            });
-            if(this.state.age < 18){
-                this.setState({ 
-                    ageError : 'You are too young to join us'
-                });
-            }else if(this.state.age > 90){
-                this.setState({ 
-                    ageError : 'You are too old to join us'
-                });
-            }else{
-                this.setState({ 
-                    ageError : ''
-                });
-                evt.target.submit();
-            }
-        }
-    }
-    nameChangeHandler = (evt)=>{
-        this.setState({
-            name : evt.target.value
-        })
-    }
-    ageChangeHandler = (evt)=>{
-        this.setState({
-            age : evt.target.value
-        })
-    }
-    cityChangeHandler = (evt)=>{
-        this.setState({
-            city : evt.target.value
-        })
-    }
+
     render(){
         return <div className="container">
-                <h2>Registeration Form</h2>
-                <form method="get" onSubmit={ this.submitHandler }>
-                    <div className="mb-3">
-                        <label htmlFor="username" className="form-label">Your Name</label>
-                        <input name="username" onChange={ this.nameChangeHandler } value={ this.state.name } className="form-control" id="username"/>
-                        <div className="form-text">{ this.state.nameError }</div>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="userage" className="form-label">Your Age</label>
-                        <input name="userage" onChange={ this.ageChangeHandler } value={ this.state.age } className="form-control" id="userage"/>
-                        <div className="form-text">{ this.state.ageError }</div>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="usercity" className="form-label">Your City</label>
-                        <input name="usercity" onChange={ this.cityChangeHandler } value={ this.state.city } className="form-control" id="usercity"/>
-                        <div className="form-text">{ this.state.cityError }</div>
-                    </div>
-                        <button type="submit" className="btn btn-primary">Register</button>
-                    </form>
-                    <hr />
-                    <p>
-                        User Name : { this.state.name }
-                        <br/>
-                        User Age : { this.state.age }
-                        <br/>
-                        User City : { this.state.city }
-                    </p>
+                <h2>Higher Order Components</h2>
+                <hr/>
+                <PowerClickComponent/>
+                <SecondPowerClickComponent/>
+                <PowerHoverComponent/>
                </div>
     }
 }
 
 export default App;
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import { Component } from "react";
+
+class PowerClickComponent extends Component{
+    state = {
+        power : 0
+    }
+    increasePower = ()=>{
+        this.setState({
+            power : this.state.power + 1
+        })
+    }
+    render(){
+        return <div  style={ { border : "5px dotted grey", padding : "10px", margin : "10px" } }>
+                <h2>Power Click Components</h2>
+                <h3>Power is : { this.state.power }</h3>
+                <button onClick={ this.increasePower }>Increase Power</button>
+               </div>
+    }
+}
+
+export default PowerClickComponent
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import { Component } from "react";
+
+class PowerHoverComponent extends Component{
+    state = {
+        power : 0
+    }
+    increasePower = ()=>{
+        this.setState({
+            power : this.state.power + 1
+        })
+    }
+    render(){
+        return <div style={ { border : "5px dotted grey", padding : "10px", margin : "10px" } }>
+                <h2>Power Hover Components</h2>
+                <h3>Power is : { this.state.power }</h3>
+                <div style={ { width : "250px", backgroundColor : "crimson", textAlign : "center", lineHeight : "50px", height : "50px", color : "papayawhip", } } onMouseMove={ this.increasePower }>Move Mouse to increase Power</div>
+               </div>
+    }
+}
+
+export default PowerHoverComponent
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import { Component } from "react";
+
+class SecondPowerClickComponent extends Component{
+    state = {
+        power : 0
+    }
+    increasePower = ()=>{
+        this.setState({
+            power : this.state.power + 1
+        })
+    }
+    render(){
+        return <div  style={ { border : "5px dotted grey", padding : "10px", margin : "10px" } }>
+                <h2>Second Power Click Components</h2>
+                <h3>Power is : { this.state.power }</h3>
+                <button onClick={ this.increasePower }>Increase Power</button>
+               </div>
+    }
+}
+
+export default SecondPowerClickComponent
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
