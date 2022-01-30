@@ -1,14 +1,16 @@
+
 import { useState } from "react";
 
 function UseStateHook(){
-    // console.log( useState() );
-    let [power, stateAccess] = useState(0);
-    
+    let [state, setState] = useState({ firstname : '', lastname : '' });
+
     return <div>
-                <h2>Hooks</h2>
+                <h2>Use State Hook </h2>
                 <hr/>
-                <button onClick={ ()=>stateAccess(power+1) }>Incease Power</button>
-                <h3>Power : { power }</h3>
+                <h3>First Name  : { state.firstname }</h3>
+                <h3>Last Name  : { state.lastname }</h3>
+                <button onClick={ ()=>setState({ ...state, firstname : "Peter" }) }>Change First Name</button>
+                <button onClick={ ()=>setState({ ...state, lastname : "Parker" }) }>Change Last Name</button>
            </div>
 
 }
