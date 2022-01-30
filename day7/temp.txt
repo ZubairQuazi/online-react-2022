@@ -1,19 +1,28 @@
 import { Component } from "react";
-import PowerClickComponent from "./components/power.click.component";
-import PowerHoverComponent from "./components/power.hover.component";
-import SecondPowerClickComponent from "./components/secondpower.click.component";
+import HeroComponent from "./components/hero.component";
+import ErrorManager from "./error.manager";
 
 class App extends Component{
 
     render(){
         return <div className="container">
-                <h2>Higher Order Components</h2>
+                <h2>Error Boundries</h2>
                 <hr/>
-                <PowerClickComponent mfgDate="1st Jan 2022" title="Click Component" version={ 101 }/>
-                <br/>
-                <SecondPowerClickComponent mfgDate="5th Jan 2022" title="2nd Click Component" version={ 201 }/>
-                <br/>
-                <PowerHoverComponent mfgDate="30th Jan 2022" title="Hover Component" version={ 301 }/>
+                <ErrorManager>
+                    <HeroComponent/>
+                </ErrorManager>
+                <ErrorManager>
+                    <HeroComponent/>
+                </ErrorManager>
+                <ErrorManager>
+                    <HeroComponent/>
+                </ErrorManager>
+                <ErrorManager>
+                    <HeroComponent/>
+                </ErrorManager>
+                <ErrorManager>
+                    <HeroComponent/>
+                </ErrorManager>
                </div>
     }
 }
@@ -21,93 +30,64 @@ class App extends Component{
 export default App;
 
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import { Component } from "react";
 
-let withPower = ( OriginalComponent  )=>{
+class HeroComponent extends Component{
 
-    class TempComp extends Component{
-        state = {
-            power : 0
-        }
-        increasePower = ()=>{
-            this.setState({
-                power : this.state.power + 1
-            })
-        }
-        /*         
-            render(){
-            return <OriginalComponent 
-            title={ this.props.title }
-            version={ this.props.version }
-            increasePower={ this.increasePower } 
-            power={ this.state.power }/>
-        } */
-        render(){
-            return <OriginalComponent 
-            { ...this.props }
-            increasePower={ this.increasePower } 
-            power={ this.state.power }/>
+    state = {
+        power : 0
+    }
+
+    constructor(){
+        super();
+
+        this.state = {
+            power : Math.round( Math.random() * 10 )
         }
     }
 
-    return TempComp;
-}
-
-export default withPower;
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-import { Component } from "react";
-import withPower from "../withPower";
-
-class PowerClickComponent extends Component{
-
     render(){
-        return <div  style={ { border : "5px dotted grey", padding : "10px", margin : "10px" } }>
-                <h2>Power Click Components</h2>
-                <h3>Power is : { this.props.power }</h3>
-                <h4>Title : { this.props.title } | version : { this.props.version } </h4>
-                <h4>Created on : { this.props.mfgDate }</h4>
-                <button onClick={ this.props.increasePower }>Increase Power</button>
-               </div>
+        if( this.state.power <= 5){
+            throw new Error("Hero is not ready to fight");
+        }else{
+            return <div>
+                        <h2>Hero Component</h2>
+                        <h3>Power is { this.state.power }</h3>
+                   </div>
+        }
     }
 }
 
-export default withPower(PowerClickComponent)
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+export default HeroComponent;
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import { Component } from "react";
-import withPower from "../withPower";
 
-class PowerHoverComponent extends Component{
+class ErrorManager extends Component{
+    state = {
+        hasError : false,
+        message : ''
+    }
+    componentDidCatch(error){
+        this.setState({
+            hasError : true,
+            message : error+""
+        })
+    }
     render(){
-        return <div style={ { border : "5px dotted grey", padding : "10px", margin : "10px" } }>
-                <h2>Power Hover Components</h2>
-                <h3>Power is : { this.props.power }</h3>
-                <h4>Title : { this.props.title } | version : { this.props.version } </h4>
-                <h4>Created on : { this.props.mfgDate }</h4>
-                <div style={ { width : "250px", backgroundColor : "crimson", textAlign : "center", lineHeight : "50px", height : "50px", color : "papayawhip", } } onMouseMove={ this.props.increasePower }>Move Mouse to increase Power</div>
-               </div>
+        if( this.state.hasError ){
+            return <h3> Hero needs rest { this.state.message } </h3>
+        }else{
+            return this.props.children
+        }
     }
 }
 
-export default withPower(PowerHoverComponent)
+export default ErrorManager;
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-import { Component } from "react";
-import withPower from "../withPower";
-
-class SecondPowerClickComponent extends Component{
-    render(){
-        return <div  style={ { border : "5px dotted grey", padding : "10px", margin : "10px" } }>
-                <h2>Second Power Click Components</h2>
-                <h3>Power is : { this.props.power }</h3>
-                <h4>Title : { this.props.title } | version : { this.props.version } </h4>
-                <h4>Created on : { this.props.mfgDate }</h4>
-                <button onClick={ this.props.increasePower }>Increase Power</button>
-               </div>
-    }
-}
-
-export default withPower(SecondPowerClickComponent)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
