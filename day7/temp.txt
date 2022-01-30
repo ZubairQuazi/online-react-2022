@@ -1,93 +1,16 @@
-import { Component } from "react";
-import HeroComponent from "./components/hero.component";
-import ErrorManager from "./error.manager";
+import { useState } from "react";
 
-class App extends Component{
-
-    render(){
-        return <div className="container">
-                <h2>Error Boundries</h2>
+function UseStateHook(){
+    // console.log( useState() );
+    let [power, stateAccess] = useState(0);
+    
+    return <div>
+                <h2>Hooks</h2>
                 <hr/>
-                <ErrorManager>
-                    <HeroComponent/>
-                </ErrorManager>
-                <ErrorManager>
-                    <HeroComponent/>
-                </ErrorManager>
-                <ErrorManager>
-                    <HeroComponent/>
-                </ErrorManager>
-                <ErrorManager>
-                    <HeroComponent/>
-                </ErrorManager>
-                <ErrorManager>
-                    <HeroComponent/>
-                </ErrorManager>
-               </div>
-    }
+                <button onClick={ ()=>stateAccess(power+1) }>Incease Power</button>
+                <h3>Power : { power }</h3>
+           </div>
+
 }
 
-export default App;
-
-
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-import { Component } from "react";
-
-class HeroComponent extends Component{
-
-    state = {
-        power : 0
-    }
-
-    constructor(){
-        super();
-
-        this.state = {
-            power : Math.round( Math.random() * 10 )
-        }
-    }
-
-    render(){
-        if( this.state.power <= 5){
-            throw new Error("Hero is not ready to fight");
-        }else{
-            return <div>
-                        <h2>Hero Component</h2>
-                        <h3>Power is { this.state.power }</h3>
-                   </div>
-        }
-    }
-}
-
-
-export default HeroComponent;
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-import { Component } from "react";
-
-class ErrorManager extends Component{
-    state = {
-        hasError : false,
-        message : ''
-    }
-    componentDidCatch(error){
-        this.setState({
-            hasError : true,
-            message : error+""
-        })
-    }
-    render(){
-        if( this.state.hasError ){
-            return <h3> Hero needs rest { this.state.message } </h3>
-        }else{
-            return this.props.children
-        }
-    }
-}
-
-export default ErrorManager;
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+export default UseStateHook;
