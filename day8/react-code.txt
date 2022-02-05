@@ -1,0 +1,21 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+let UseEffectForAjax = ()=>{
+    let [ heroes, manageUsers ] = useState([]);
+    useEffect(()=>{
+        axios.get("http://localhost:5050/data")
+        .then(res=> manageUsers(res.data))
+        .catch(error=>console.log(error))
+    },[]);
+    return <div>
+                <h2>Heroes List</h2>
+                <ol>
+                {
+                    heroes.map((hero)=> <li key={hero._id}>{ hero.firstname+" "+hero.lastname+" Power : "+hero.power+" is from "+hero.city }</li> )
+                }
+                </ol>
+            </div>
+}
+
+export default UseEffectForAjax;
