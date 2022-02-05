@@ -2,19 +2,124 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 let UseEffectForAjax = ()=>{
-    let [ heroes, manageUsers ] = useState([]);
-    useEffect(()=>{
+    let [ show, manageShow] = useState(true);
+    let [ heroes, getHeroes ] = useState([]);
+    let [ addhero, addHeroHandler ] = useState({});
+    let [ edithero, manageUsers ] = useState({});
+    let refresh = ()=>{
         axios.get("http://localhost:5050/data")
-        .then(res=> manageUsers(res.data))
+        .then(res=> getHeroes(res.data))
         .catch(error=>console.log(error))
+    }
+    useEffect(()=>{
+        refresh();
     },[]);
+    let submitHandler = ()=>{
+        // alert(JSON.stringify(addhero));
+        axios.post("http://localhost:5050/data", addhero)
+        .then(res =>{
+            refresh();
+            console.log(res.data);
+        })
+        .catch(err => console.log(err));
+    }
+    let updateHandler = ()=>{
+        alert("you created a hero")
+    }
+   /*  
+    let firstNameHandler = (evt)=>{
+        addHeroHandler({...addhero, firstname : evt.target.value})
+    }
+    let lastNameHandler = (evt)=>{
+        addHeroHandler({...addhero, lastname : evt.target.value})
+    }
+    let cityHandler = (evt)=>{
+        addHeroHandler({...addhero, city : evt.target.value})
+    }
+    let powerHandler = (evt)=>{
+        addHeroHandler({...addhero, power : evt.target.value})
+    } 
+    */
+
+    let addDataHandler = (evt)=>{
+        addHeroHandler({...addhero, [evt.target.id] : evt.target.value})
+    }
+
     return <div>
+                { show && <div>
+                    <h2>Add Hero</h2>
+                    <div className="mb-3">
+                        <label htmlFor="firstname" className="form-label">Hero's First Name</label>
+                        <input onChange={ addDataHandler } value={ addhero.firstname } className="form-control" id="firstname"/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="lastname" className="form-label">Hero's Last Name</label>
+                        <input onChange={ addDataHandler } value={ addhero.lastname } className="form-control" id="lastname"/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="city" className="form-label">Hero's City</label>
+                        <input onChange={ addDataHandler } value={ addhero.city } className="form-control" id="city"/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="power" className="form-label">Hero's Power</label>
+                        <input onChange={ addDataHandler } value={ addhero.power } type="number" className="form-control" id="power"/>
+                    </div>
+                    <button onClick={submitHandler} className="btn btn-primary">Add Hero</button>
+                    <hr/>
+                </div>}
+                { !show && <div>
+                    <h2>Edit Hero</h2>
+                        <div className="mb-3">
+                            <label htmlFor="edit_firstname" className="form-label">Hero's First Name</label>
+                            <input className="form-control" id="edit_firstname"/>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="edit_lastname" className="form-label">Hero's Last Name</label>
+                            <input className="form-control" id="edit_lastname"/>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="edit_city" className="form-label">Hero's City</label>
+                            <input className="form-control" id="edit_city"/>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="edit_power" className="form-label">Hero's Power</label>
+                            <input type="number" className="form-control" id="edit_power"/>
+                        </div>
+                        <button onClick={updateHandler} className="btn btn-primary">Update Hero</button>
+                        <hr/>
+                </div>}
                 <h2>Heroes List</h2>
-                <ol>
-                {
-                    heroes.map((hero)=> <li key={hero._id}>{ hero.firstname+" "+hero.lastname+" Power : "+hero.power+" is from "+hero.city }</li> )
-                }
-                </ol>
+
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sl #</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Power</th>
+                            <th>City</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            heroes.map((hero, idx)=><tr key={idx}>
+                                                <td>{idx + 1}</td>
+                                                <td>{hero.firstname}</td>
+                                                <td>{hero.lastname}</td>
+                                                <td>{hero.power}</td>
+                                                <td>{hero.city}</td>
+                                                <td>
+                                                    <button className="btn btn-warning">Edit</button>
+                                                </td>
+                                                <td>
+                                                    <button className="btn btn-danger">Delete</button>
+                                                </td>
+                                            </tr>)
+                        }
+                    </tbody>
+                </table>
             </div>
 }
 
