@@ -27,7 +27,7 @@ let UseEffectForAjax = ()=>{
 
     let updateHandler = (evt)=>{
         // alert("you created a hero");
-        axios.post("http://localhost:5050/edit/"+edithero._id)
+        axios.post("http://localhost:5050/edit/"+edithero._id, edithero)
         .then( res=> {
             console.log(res.data);
             refresh();
