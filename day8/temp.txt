@@ -1,0 +1,48 @@
+import ReactDOM from 'react-dom';
+import Mainapp from './mainapp.component';
+
+ReactDOM.render(<Mainapp/>, document.getElementById("root"))
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import UseEffectForAjax from "./components/useEffectHook.component";
+
+let Mainapp = ()=>{
+    return <div className="container">
+                <h1>My Application</h1>
+                <hr/>
+                <UseEffectForAjax/>
+            </div>
+}
+
+export default Mainapp;
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+let UseEffectForAjax = ()=>{
+    let [ users, manageUsers ] = useState([]);
+    useEffect(()=>{
+        axios.get("https://jsonplaceholder.typicode.com/users")
+        .then(res=>manageUsers(res.data))
+        .catch(error=>console.log(error))
+    },[])
+    return <div>
+                <h2>Users List</h2>
+                <ol>
+                {
+                    users.map((user)=> <li key={user.id}>{ user.name }</li> )
+                }
+                </ol>
+            </div>
+}
+
+export default UseEffectForAjax;
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+npm i axios
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
