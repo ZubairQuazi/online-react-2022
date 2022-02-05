@@ -5,7 +5,7 @@ let UseEffectForAjax = ()=>{
     let [ show, manageShow] = useState(true);
     let [ heroes, getHeroes ] = useState([]);
     let [ addhero, addHeroHandler ] = useState({});
-    let [ edithero, manageUsers ] = useState({});
+    let [ edithero, manageEditHero ] = useState({});
     let refresh = ()=>{
         axios.get("http://localhost:5050/data")
         .then(res=> getHeroes(res.data))
@@ -14,6 +14,7 @@ let UseEffectForAjax = ()=>{
     useEffect(()=>{
         refresh();
     },[]);
+
     let submitHandler = ()=>{
         // alert(JSON.stringify(addhero));
         axios.post("http://localhost:5050/data", addhero)
@@ -23,9 +24,20 @@ let UseEffectForAjax = ()=>{
         })
         .catch(err => console.log(err));
     }
-    let updateHandler = ()=>{
-        alert("you created a hero")
+
+    let updateHandler = (evt)=>{
+        // alert("you created a hero");
+        axios.post("http://localhost:5050/edit/"+edithero._id)
+        .then( res=> {
+            console.log(res.data);
+            refresh();
+            manageEditHero({});
+            manageShow(true);
+        })
+        .catch( err=> console.log(err));
+        // alert(edithero._id);
     }
+
    /*  
     let firstNameHandler = (evt)=>{
         addHeroHandler({...addhero, firstname : evt.target.value})
@@ -44,7 +56,24 @@ let UseEffectForAjax = ()=>{
     let addDataHandler = (evt)=>{
         addHeroHandler({...addhero, [evt.target.id] : evt.target.value})
     }
-
+    let editDataHandler = (evt)=>{
+        manageEditHero({...edithero, [evt.target.getAttribute("data-title")] : evt.target.value });
+    }
+    let editHeroHandler = (evt)=>{
+        // alert(evt.target.getAttribute("data-heroid"));
+        axios.get("http://localhost:5050/edit/"+evt.target.getAttribute("data-heroid")).then(res=>{
+            // console.log(res.data);
+            manageEditHero(res.data);
+            manageShow(false)
+        })
+    }
+    let deleteHeroHandler = (evt)=>{
+        // alert(evt.target.getAttribute("data-heroid"));
+        axios.delete("http://localhost:5050/delete/"+evt.target.getAttribute("data-heroid")).then(res=>{
+            console.log(res.data);
+            refresh();
+        })
+    }
     return <div>
                 { show && <div>
                     <h2>Add Hero</h2>
@@ -71,19 +100,19 @@ let UseEffectForAjax = ()=>{
                     <h2>Edit Hero</h2>
                         <div className="mb-3">
                             <label htmlFor="edit_firstname" className="form-label">Hero's First Name</label>
-                            <input className="form-control" id="edit_firstname"/>
+                            <input onChange={ editDataHandler } value={edithero.firstname} className="form-control" data-title="firstname" id="edit_firstname"/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="edit_lastname" className="form-label">Hero's Last Name</label>
-                            <input className="form-control" id="edit_lastname"/>
+                            <input onChange={ editDataHandler } value={edithero.lastname} className="form-control" data-title="lastname" id="edit_lastname"/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="edit_city" className="form-label">Hero's City</label>
-                            <input className="form-control" id="edit_city"/>
+                            <input onChange={ editDataHandler } value={edithero.city} className="form-control" data-title="city" id="edit_city"/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="edit_power" className="form-label">Hero's Power</label>
-                            <input type="number" className="form-control" id="edit_power"/>
+                            <input onChange={ editDataHandler } value={edithero.power} type="number" data-title="power" className="form-control" id="edit_power"/>
                         </div>
                         <button onClick={updateHandler} className="btn btn-primary">Update Hero</button>
                         <hr/>
@@ -111,10 +140,10 @@ let UseEffectForAjax = ()=>{
                                                 <td>{hero.power}</td>
                                                 <td>{hero.city}</td>
                                                 <td>
-                                                    <button className="btn btn-warning">Edit</button>
+                                                    <button onClick={ editHeroHandler } data-heroid={ hero._id } className="btn btn-warning">Edit</button>
                                                 </td>
                                                 <td>
-                                                    <button className="btn btn-danger">Delete</button>
+                                                    <button onClick={ deleteHeroHandler } data-heroid={ hero._id } className="btn btn-danger">Delete</button>
                                                 </td>
                                             </tr>)
                         }
