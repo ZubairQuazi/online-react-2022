@@ -56,3 +56,25 @@ let MainApp = ()=>{
 }
 
 export default MainApp;
+
+
+
+
+
+
+
+
+
+
+
+import { useParams } from "react-router-dom";
+
+let HulkComponent = (props)=>{
+    let params = useParams();
+    return<div>
+                <h2>Hulk Component</h2>
+                <h3>Version is {params.ver}</h3>
+           </div>
+}
+
+export default HulkComponent;
