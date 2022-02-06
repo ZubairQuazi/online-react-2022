@@ -4,8 +4,8 @@ import axios from "axios";
 let UseEffectForAjax = ()=>{
     let [ show, manageShow] = useState(true);
     let [ heroes, getHeroes ] = useState([]);
-    let [ addhero, addHeroHandler ] = useState({});
-    let [ edithero, manageEditHero ] = useState({});
+    let [ addhero, addHeroHandler ] = useState({firstname : '', lastname : '', city : '', power : ''});
+    let [ edithero, manageEditHero ] = useState({firstname : '', lastname : '', city : '', power : ''});
     let refresh = ()=>{
         axios.get("http://localhost:5050/data")
         .then(res=> getHeroes(res.data))
@@ -31,7 +31,7 @@ let UseEffectForAjax = ()=>{
         .then( res=> {
             console.log(res.data);
             refresh();
-            manageEditHero({});
+            // manageEditHero({});
             manageShow(true);
         })
         .catch( err=> console.log(err));
@@ -54,7 +54,7 @@ let UseEffectForAjax = ()=>{
     */
 
     let addDataHandler = (evt)=>{
-        addHeroHandler({...addhero, [evt.target.id] : evt.target.value})
+        addHeroHandler({...addhero, [evt.target.getAttribute("id")] : evt.target.value})
     }
     let editDataHandler = (evt)=>{
         manageEditHero({...edithero, [evt.target.getAttribute("data-title")] : evt.target.value });
