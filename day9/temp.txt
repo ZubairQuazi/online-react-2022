@@ -1,15 +1,3 @@
-.boxer{
-    background-color: darkslategray;
-    width: 100px;
-    text-align: center;
-    margin-left: 5px;
-    color: beige;
-}
-
-
-
-
-
 import {BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import HeroesHomeComponent from "./components/home.component";
 import HulkComponent from "./components/hulk.component";
@@ -17,10 +5,13 @@ import IronmanComponent from "./components/ironman.component";
 import ScarletComponent from "./components/scarlet.component";
 import NotFoundComponent from "./components/notfound.component";
 import "./components/mystyle.css";
+import { useState } from "react";
 let MainApp = ()=>{
+    let [version, increaseVersion] = useState(100);
     return<div className="container">
-                <h1>Routing 101</h1>
+                <h1>Routing 101 | version : { version }</h1>
                 <hr/>
+                <button onClick={ ()=> increaseVersion(version + 1)}>Increase Version</button>
                 <BrowserRouter>
                   {/*   <ul>
                         <li><a href="/">Home</a></li>
@@ -44,7 +35,7 @@ let MainApp = ()=>{
                         <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/ironman"}>Ironman</NavLink> 
                         </li>
                         <li className="nav-item"> 
-                        <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/hulk"}>Hulk</NavLink> 
+                        <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/hulk/"+version}>Hulk</NavLink> 
                         </li>
                         <li className="nav-item"> 
                         <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/scarlet"}>Scarlet</NavLink> 
@@ -55,7 +46,7 @@ let MainApp = ()=>{
                     </ul>
                    <Routes>
                         <Route path="/" element={ <HeroesHomeComponent/> }/>
-                        <Route path="/hulk" element={ <HulkComponent/> }/>
+                        <Route path="/hulk/:ver" element={ <HulkComponent/> }/>
                         <Route path="/ironman" element={ <IronmanComponent/> }/>
                         <Route path="/scarlet" element={ <ScarletComponent/> }/>
                         <Route path="*" element={ <NotFoundComponent/> }/>
