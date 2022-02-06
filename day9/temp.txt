@@ -1,1 +1,67 @@
+.boxer{
+    background-color: darkslategray;
+    width: 100px;
+    text-align: center;
+    margin-left: 5px;
+    color: beige;
+}
 
+
+
+
+
+import {BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import HeroesHomeComponent from "./components/home.component";
+import HulkComponent from "./components/hulk.component";
+import IronmanComponent from "./components/ironman.component";
+import ScarletComponent from "./components/scarlet.component";
+import NotFoundComponent from "./components/notfound.component";
+import "./components/mystyle.css";
+let MainApp = ()=>{
+    return<div className="container">
+                <h1>Routing 101</h1>
+                <hr/>
+                <BrowserRouter>
+                  {/*   <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/ironman">Ironman</a></li>
+                        <li><a href="/hulk">Hulk</a></li>
+                        <li><a href="/scarlet">Scarlet</a></li>
+                        <li><a href="/batman">Batman</a></li>
+                    </ul> */}
+                   {/*  <ul className="nav justify-content-center">
+                        <li className="nav-item"> <Link className="nav-link" to={"/"}>Home</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"/ironman"}>Ironman</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"/hulk"}>Hulk</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"/scarlet"}>Scarlet</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"/batman"}>Batman</Link> </li>
+                    </ul> */}
+                     <ul className="nav justify-content-center">
+                        <li className="nav-item"> 
+                        <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' } to={"/"}>Home</NavLink> 
+                        </li>
+                        <li className="nav-item"> 
+                        <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/ironman"}>Ironman</NavLink> 
+                        </li>
+                        <li className="nav-item"> 
+                        <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/hulk"}>Hulk</NavLink> 
+                        </li>
+                        <li className="nav-item"> 
+                        <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/scarlet"}>Scarlet</NavLink> 
+                        </li>
+                        <li className="nav-item"> 
+                        <NavLink className={({ isActive }) => isActive ? 'boxer nav-link' : 'nav-link' }  to={"/batman"}>Batman</NavLink> 
+                        </li>
+                    </ul>
+                   <Routes>
+                        <Route path="/" element={ <HeroesHomeComponent/> }/>
+                        <Route path="/hulk" element={ <HulkComponent/> }/>
+                        <Route path="/ironman" element={ <IronmanComponent/> }/>
+                        <Route path="/scarlet" element={ <ScarletComponent/> }/>
+                        <Route path="*" element={ <NotFoundComponent/> }/>
+                   </Routes>
+                </BrowserRouter>
+           </div>
+}
+
+export default MainApp;
